@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Chave Pix</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Fundo preto */
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5em;
+        }
+
+        .qr-code {
+            margin-top: 50px;
+            display: inline-block;
+        }
+
+        .pix-key {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #bbb;
+        }
+
+        .cta-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 50px;
+            text-decoration: none;
+            font-size: 1.5em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Texto grande no topo */
+        .top-text {
+            background-color: #444;
+            color: #bbb;
+            font-size: 1.5em;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Cabeçalho -->
+<h1>Bem-vindo ao Meu Site</h1>
+
+<!-- Texto Grande no Topo -->
+<div class="top-text">
+    Nada para fazer? Manda um piz de 1 centavo ou quanto você quiser mandar para eu falar qualquer segredo que você queira saber.
+</div>
+
+<!-- Botão "GERAR CHAVE PIX" -->
+<a href="javascript:void(0);" class="cta-button" id="gerarPixBtn">Gerar Chave PIX</a>
+
+<!-- Gerar QR Code e Chave Pix -->
+<div id="gerar-chave-pix" style="display:none;">
+    <h2>Gerar Chave PIX</h2>
+    <div class="qr-code" id="qrcode"></div>
+    <div class="pix-key" id="pixKey"></div>
+</div>
+
+<!-- Rodapé -->
+<footer>
+    <p>© 2024 Meu Site. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    // Sua chave Pix fixa
+    const chavePix = 'faa3cba2-4ff9-4222-83b9-0b8984a12327';  // Substitua pela sua chave Pix real
+
+    // Função para exibir o QR Code e chave Pix quando o botão for clicado
+    document.getElementById('gerarPixBtn').addEventListener('click', function() {
+        document.getElementById('gerar-chave-pix').style.display = 'block';
+        
+        // Formato do Pix: pix: + chave Pix
+        const chavePixUrl = `pix:${chavePix}`;
+
+        // Gerar QR Code com a chave Pix
+        QRCode.toDataURL(chavePixUrl, function (error, url) {
+            if (error) console.error(error);
+            else {
+                // Criar uma imagem para o QR Code
+                let img = new Image();
+                img.src = url;
+                document.getElementById('qrcode').innerHTML = '';  // Limpar QRCode antigo
+                document.getElementById('qrcode').appendChild(img); // Adicionar nova imagem
+            }
+        });
+
+        // Exibir a chave Pix abaixo do QR Code
+        document.getElementById('pixKey').textContent = `Chave Pix: ${chavePix}`;
+    });
+</script>
+
+</body>
+</html>
